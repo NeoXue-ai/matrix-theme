@@ -3,12 +3,15 @@
 import { useEffect, useRef, useState } from "react"
 import { useLanguage } from "@/contexts/language-context"
 
-interface AboutConfig {
-  lines: { key: string; value: string | string[] }[]
-  paragraphs: string[]
-}
+const aboutLines = [
+  { key: "name", value: "Your Name" },
+  { key: "role", value: "Full-Stack Developer" },
+  { key: "focus", value: ["Web Apps", "SaaS", "Open Source"] },
+  { key: "mission", value: "Build cool stuff." },
+  { key: "principle", value: "Ship fast, learn faster." },
+]
 
-export function SkillsSection({ about }: { about: AboutConfig }) {
+export function SkillsSection() {
   const { t } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
@@ -54,7 +57,7 @@ export function SkillsSection({ about }: { about: AboutConfig }) {
 
           <div className="text-foreground space-y-2">
             <p>{"{"}</p>
-            {about.lines.map((line, index) => (
+            {aboutLines.map((line, index) => (
               <div
                 key={line.key}
                 className={`ml-4 transition-all duration-300 ${
@@ -78,17 +81,21 @@ export function SkillsSection({ about }: { about: AboutConfig }) {
                 ) : (
                   <span className="text-primary">{`"${line.value}"`}</span>
                 )}
-                {index < about.lines.length - 1 && <span className="text-muted-foreground">,</span>}
+                {index < aboutLines.length - 1 && <span className="text-muted-foreground">,</span>}
               </div>
             ))}
             <p>{"}"}</p>
           </div>
 
           <div className="mt-6 border-l-2 border-primary/60 pl-5 space-y-4 text-base md:text-lg leading-8 text-foreground">
-            {about.paragraphs.map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
             <p>
+              I build things for the web and share what I learn along the way.
+            </p>
+            <p>
+              I enjoy turning ideas into products, shipping quickly, and learning from real users.
+            </p>
+            <p>
+              Currently exploring new technologies and building in public.
               <span className="cursor-blink ml-1 text-primary">█</span>
             </p>
           </div>

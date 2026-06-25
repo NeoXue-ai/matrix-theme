@@ -4,20 +4,38 @@ import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
 
-interface Tool {
-  nameKey: string
-  descKey: string
-  status: string
-  link: string
-  icon: string
-  stats: Record<string, string>
-}
-
-export function ToolsSection({ tools }: { tools: Tool[] }) {
+export function ToolsSection() {
   const { t } = useLanguage()
   const [hoveredTool, setHoveredTool] = useState<number | null>(null)
   const [visibleTools, setVisibleTools] = useState<number[]>([])
   const sectionRef = useRef<HTMLElement>(null)
+
+  const tools = [
+    {
+      nameKey: "tools.tool1.name",
+      descKey: "tools.tool1.desc",
+      status: "active",
+      link: "#",
+      icon: "🔍",
+      stats: { users: "120+", requests: "10k+" }
+    },
+    {
+      nameKey: "tools.tool2.name",
+      descKey: "tools.tool2.desc",
+      status: "beta",
+      link: "#",
+      icon: "📊",
+      stats: { sources: "5+", accuracy: "95%" }
+    },
+    {
+      nameKey: "tools.tool3.name",
+      descKey: "tools.tool3.desc",
+      status: "dev",
+      link: "#",
+      icon: "🧪",
+      stats: { tests: "50+", variants: "A/B/C" }
+    },
+  ]
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,7 +57,7 @@ export function ToolsSection({ tools }: { tools: Tool[] }) {
     }
 
     return () => observer.disconnect()
-  }, [tools])
+  }, [])
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -56,12 +74,14 @@ export function ToolsSection({ tools }: { tools: Tool[] }) {
 
   return (
     <section ref={sectionRef} className="py-12">
+      {/* Section Header */}
       <div className="mb-6 flex items-center gap-3">
         <span className="text-accent">{">"}</span>
         <h2 className="text-lg text-foreground">{t("tools.title")}</h2>
         <span className="text-muted-foreground text-sm">{t("tools.comment")}</span>
       </div>
 
+      {/* Tools Grid */}
       <div className="space-y-4">
         {tools.map((tool, index) => (
           <div
@@ -69,14 +89,15 @@ export function ToolsSection({ tools }: { tools: Tool[] }) {
             className={`
               group border border-border p-4 transition-all duration-300
               ${visibleTools.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
-              ${hoveredTool === index
-                ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10'
+              ${hoveredTool === index 
+                ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10' 
                 : 'hover:border-muted-foreground'
               }
             `}
             onMouseEnter={() => setHoveredTool(index)}
             onMouseLeave={() => setHoveredTool(null)}
           >
+            {/* Tool Header */}
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-3">
                 <span className={`text-2xl transition-transform duration-300 ${hoveredTool === index ? 'scale-110' : ''}`}>
@@ -89,7 +110,8 @@ export function ToolsSection({ tools }: { tools: Tool[] }) {
                   </div>
                 </div>
               </div>
-
+              
+              {/* Stats */}
               <div className={`hidden sm:flex items-center gap-4 text-xs transition-opacity duration-300 ${hoveredTool === index ? 'opacity-100' : 'opacity-50'}`}>
                 {Object.entries(tool.stats).map(([key, value]) => (
                   <div key={key} className="text-right">
@@ -100,12 +122,14 @@ export function ToolsSection({ tools }: { tools: Tool[] }) {
               </div>
             </div>
 
+            {/* Tool Description */}
             <div className="mb-4">
               <p className="text-muted-foreground text-sm font-mono">
                 <span className="text-accent">$</span> {t(tool.descKey)}
               </p>
             </div>
 
+            {/* Tool Actions */}
             <div className="flex items-center justify-between">
               <Link
                 href={tool.link}
@@ -116,6 +140,7 @@ export function ToolsSection({ tools }: { tools: Tool[] }) {
                 <span className="opacity-0 group-hover/link:opacity-100 transition-opacity cursor-blink">_</span>
               </Link>
 
+              {/* Progress indicator */}
               {hoveredTool === index && (
                 <div className="text-xs text-muted-foreground font-mono slide-in-right">
                   loading: [████████████████████] 100%
@@ -123,6 +148,7 @@ export function ToolsSection({ tools }: { tools: Tool[] }) {
               )}
             </div>
 
+            {/* Hover decoration */}
             <div className={`mt-3 overflow-hidden transition-all duration-300 ${hoveredTool === index ? 'max-h-8 opacity-100' : 'max-h-0 opacity-0'}`}>
               <pre className="text-xs text-border select-none max-w-full overflow-x-auto">
                 {"╰" + "─".repeat(50) + "╯"}
@@ -132,6 +158,7 @@ export function ToolsSection({ tools }: { tools: Tool[] }) {
         ))}
       </div>
 
+      {/* ASCII Separator */}
       <pre className="mt-12 text-border select-none max-w-full overflow-x-auto">
 {"─".repeat(68)}
       </pre>

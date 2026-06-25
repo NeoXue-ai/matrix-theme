@@ -1,1 +1,319 @@
-@import '../styles/globals.css';
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.08 0.01 240);
+  --foreground: oklch(0.85 0.02 140);
+  --card: oklch(0.12 0.01 240);
+  --card-foreground: oklch(0.85 0.02 140);
+  --popover: oklch(0.12 0.01 240);
+  --popover-foreground: oklch(0.85 0.02 140);
+  --primary: oklch(0.75 0.18 140);
+  --primary-foreground: oklch(0.08 0.01 240);
+  --secondary: oklch(0.15 0.01 240);
+  --secondary-foreground: oklch(0.7 0.02 140);
+  --muted: oklch(0.18 0.01 240);
+  --muted-foreground: oklch(0.55 0.02 140);
+  --accent: oklch(0.65 0.15 85);
+  --accent-foreground: oklch(0.08 0.01 240);
+  --destructive: oklch(0.65 0.2 25);
+  --destructive-foreground: oklch(0.08 0.01 240);
+  --border: oklch(0.25 0.02 140);
+  --input: oklch(0.15 0.01 240);
+  --ring: oklch(0.75 0.18 140);
+  --chart-1: oklch(0.75 0.18 140);
+  --chart-2: oklch(0.65 0.15 85);
+  --chart-3: oklch(0.7 0.15 200);
+  --chart-4: oklch(0.75 0.15 320);
+  --chart-5: oklch(0.65 0.2 25);
+  --sidebar: oklch(0.1 0.01 240);
+  --sidebar-foreground: oklch(0.85 0.02 140);
+  --sidebar-primary: oklch(0.75 0.18 140);
+  --sidebar-primary-foreground: oklch(0.08 0.01 240);
+  --sidebar-accent: oklch(0.15 0.01 240);
+  --sidebar-accent-foreground: oklch(0.85 0.02 140);
+  --sidebar-border: oklch(0.25 0.02 140);
+  --sidebar-ring: oklch(0.75 0.18 140);
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Terminal cursor blink animation */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes glitch {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.8; }
+  94% { opacity: 1; }
+  95% { opacity: 0.9; }
+  96% { opacity: 1; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { 
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+  }
+  50% { 
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+}
+
+@keyframes matrix-rain {
+  0% { transform: translateY(-100%); opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes matrix-stream-fall {
+  0% { transform: translateY(-120%); opacity: 0; }
+  8% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.text-glitch:hover {
+  animation: glitch 0.3s ease-in-out;
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(0, 255, 128, 0.1), transparent);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.flicker {
+  animation: flicker 5s linear infinite;
+}
+
+.glow-text {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* CRT screen effect */
+.crt-effect::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom selection color */
+::selection {
+  background: oklch(0.75 0.18 140 / 0.4);
+  color: oklch(0.95 0.02 140);
+}
+
+/* Additional animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
+  50% { box-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cyber-glitch {
+  0%, 100% { 
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  10% { 
+    clip-path: inset(10% 0 60% 0);
+    transform: translate(-2px, 2px);
+  }
+  20% { 
+    clip-path: inset(40% 0 30% 0);
+    transform: translate(2px, -2px);
+  }
+  30% { 
+    clip-path: inset(70% 0 10% 0);
+    transform: translate(-1px, 1px);
+  }
+  40% { 
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+}
+
+@keyframes text-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes border-flow {
+  0%, 100% { border-color: var(--primary); }
+  50% { border-color: var(--accent); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+.slide-in-right {
+  animation: slide-in-right 0.6s ease-out forwards;
+}
+
+.rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+.cyber-glitch:hover {
+  animation: cyber-glitch 0.5s ease-in-out;
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg, var(--foreground) 0%, var(--primary) 50%, var(--foreground) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 3s linear infinite;
+}
+
+.border-flow {
+  animation: border-flow 2s ease-in-out infinite;
+}
+
+.matrix-rain-stream {
+  animation-name: matrix-stream-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
+}
+
+/* Shooting star animation */
+@keyframes shooting-star {
+  0% {
+    opacity: 1;
+    transform: rotate(-45deg) translateX(0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(-45deg) translateX(200px);
+  }
+}

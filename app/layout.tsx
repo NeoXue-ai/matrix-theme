@@ -4,19 +4,23 @@ import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { LanguageProvider } from '@/contexts/language-context'
 import { AsciiStarfield } from '@/components/ascii-starfield'
-import { defaultConfig } from '@/template.config'
 import './globals.css'
 
-const jetbrainsMono = JetBrains_Mono({
+const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"],
   variable: '--font-mono'
-})
+});
 
 export const metadata: Metadata = {
-  title: defaultConfig.siteName,
-  description: defaultConfig.description,
+  title: 'Your Name — Full-Stack Developer',
+  description: 'Full-stack developer building things for the web and sharing what I learn.',
   generator: 'v0.app',
-  authors: [{ name: defaultConfig.author.name }],
+  keywords: ['developer', 'full-stack', 'web', 'open source', 'portfolio'],
+  authors: [{ name: 'Your Name' }],
+  icons: {
+    icon: '/favicon.png',
+    apple: '/apple-icon.png',
+  },
 }
 
 export const viewport: Viewport = {
@@ -31,8 +35,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${jetbrainsMono.variable} font-mono antialiased bg-background crt-effect`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${jetbrainsMono.variable} font-mono antialiased bg-background crt-effect flicker`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -40,7 +44,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <LanguageProvider translations={defaultConfig.translations}>
+          <LanguageProvider>
             <AsciiStarfield />
             <div className="scanline" />
             {children}

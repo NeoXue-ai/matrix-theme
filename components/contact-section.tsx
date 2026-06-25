@@ -3,13 +3,13 @@
 import { useState } from "react"
 import { useLanguage } from "@/contexts/language-context"
 
-interface Contact {
-  label: string
-  value: string
-  link: string
-}
+const contacts = [
+  { label: "Twitter", value: "@your-twitter", link: "https://x.com/your-twitter" },
+  { label: "GitHub", value: "your-github", link: "https://github.com/your-github" },
+  { label: "Email", value: "hello@example.com", link: "mailto:hello@example.com" },
+]
 
-export function ContactSection({ contacts, footer }: { contacts: Contact[]; footer: string }) {
+export function ContactSection() {
   const { t } = useLanguage()
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
   const [typingCommand, setTypingCommand] = useState("")
@@ -26,7 +26,7 @@ export function ContactSection({ contacts, footer }: { contacts: Contact[]; foot
     let i = 0
     setShowOutput(false)
     setTypingCommand("")
-
+    
     const typeInterval = setInterval(() => {
       if (i < command.length) {
         setTypingCommand(command.slice(0, i + 1))
@@ -40,19 +40,22 @@ export function ContactSection({ contacts, footer }: { contacts: Contact[]; foot
 
   return (
     <section className="py-12">
+      {/* Section Header */}
       <div className="mb-6 flex items-center gap-3">
         <span className="text-accent">{">"}</span>
         <h2 className="text-lg text-foreground">{t("contact.title")}</h2>
         <span className="text-muted-foreground text-sm">{t("contact.comment")}</span>
       </div>
 
+      {/* Interactive Terminal */}
       <div className="border border-border bg-card/50 overflow-hidden">
+        {/* Terminal Header */}
         <div className="flex items-center gap-2 border-b border-border px-4 py-2 bg-muted/30">
           <div className="h-2.5 w-2.5 rounded-full bg-destructive cursor-pointer hover:brightness-125" />
           <div className="h-2.5 w-2.5 rounded-full bg-accent cursor-pointer hover:brightness-125" />
           <div className="h-2.5 w-2.5 rounded-full bg-primary cursor-pointer hover:brightness-125" />
           <span className="ml-2 text-xs text-muted-foreground">contact.sh</span>
-          <button
+          <button 
             onClick={simulateCommand}
             className="ml-auto text-xs text-muted-foreground hover:text-primary transition-colors border border-border px-2 py-0.5 hover:border-primary"
           >
@@ -60,9 +63,10 @@ export function ContactSection({ contacts, footer }: { contacts: Contact[]; foot
           </button>
         </div>
 
+        {/* Terminal Content */}
         <div className="p-4 space-y-3 font-mono text-sm">
           <p className="text-muted-foreground">
-            <span className="text-primary">neo@dev</span>
+            <span className="text-primary">visitor@dev</span>
             <span className="text-muted-foreground">:</span>
             <span className="text-accent">~</span>
             <span className="text-muted-foreground">$ </span>
@@ -71,11 +75,11 @@ export function ContactSection({ contacts, footer }: { contacts: Contact[]; foot
               <span className="cursor-blink">█</span>
             )}
           </p>
-
+          
           {(showOutput || typingCommand === "") && (
             <div className="text-foreground slide-up">
               <p>{"{"}</p>
-
+              
               {contacts.map((contact, index) => (
                 <div key={index} className="ml-4 flex items-center gap-2 group py-1">
                   <span className="text-accent">{`"${contact.label.toLowerCase()}"`}</span>
@@ -91,8 +95,8 @@ export function ContactSection({ contacts, footer }: { contacts: Contact[]; foot
                   <button
                     onClick={() => handleCopy(contact.value, index)}
                     className={`ml-2 transition-all px-1 ${
-                      copiedIndex === index
-                        ? 'text-primary'
+                      copiedIndex === index 
+                        ? 'text-primary' 
                         : 'text-muted-foreground hover:text-foreground opacity-0 group-hover:opacity-100'
                     }`}
                     title="Copy"
@@ -102,25 +106,27 @@ export function ContactSection({ contacts, footer }: { contacts: Contact[]; foot
                   {index < contacts.length - 1 && <span className="text-muted-foreground">,</span>}
                 </div>
               ))}
-
+              
               <p>{"}"}</p>
             </div>
           )}
         </div>
       </div>
 
+      {/* Call to Action */}
       <div className="mt-8 border-l-2 border-primary pl-4 py-2 hover:bg-primary/5 transition-colors">
         <p className="text-muted-foreground italic">
           {t("contact.cta")}
         </p>
       </div>
 
+      {/* Footer ASCII Art */}
       <div className="mt-16 text-center">
         <pre className="text-border select-none text-xs inline-block max-w-full overflow-x-auto">
 {`
 ╔════════════════════════════════════════════════════╗
 ║                                                    ║
-║   ${footer.padStart(36).padEnd(50)}   ║
+║   ${t("contact.footer").padStart(36).padEnd(50)}   ║
 ║                                                    ║
 ╚════════════════════════════════════════════════════╝
 `}
