@@ -2,6 +2,8 @@
 
 Cyberpunk/Matrix-inspired portfolio template with terminal aesthetics, animated backgrounds, and CRT effects.
 
+**[Live Demo](https://neoxue-ai.github.io/web-templates/)**
+
 ![Matrix Theme Preview](public/preview.png)
 
 **Features:**
