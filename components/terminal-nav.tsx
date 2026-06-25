@@ -8,7 +8,7 @@ import { Menu, X } from "lucide-react"
 
 export function TerminalNav() {
   const pathname = usePathname()
-  const { language, setLanguage, t } = useLanguage()
+  const { t } = useLanguage()
   const [menuOpen, setMenuOpen] = useState(false)
 
   const navItems = [
@@ -16,10 +16,6 @@ export function TerminalNav() {
     { href: "/projects", label: t("nav.projects") },
     { href: "/notes", label: t("nav.notes") },
   ]
-
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "zh" : "en")
-  }
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
@@ -64,28 +60,10 @@ export function TerminalNav() {
               ))}
               <span className="text-muted-foreground">{"]"}</span>
             </div>
-
-            {/* Controls */}
-            <div className="flex items-center gap-2 border-l border-border pl-4">
-              <button
-                onClick={toggleLanguage}
-                className="px-2 py-1 text-xs border border-border hover:border-primary hover:text-primary transition-all cyber-glitch"
-                title="Toggle Language"
-              >
-                {language === "en" ? "中文" : "EN"}
-              </button>
-            </div>
           </div>
 
           {/* Mobile Controls */}
           <div className="flex md:hidden items-center gap-2">
-            <button
-              onClick={toggleLanguage}
-              className="px-2 py-1 text-xs border border-border hover:border-primary hover:text-primary transition-all"
-              title="Toggle Language"
-            >
-              {language === "en" ? "中文" : "EN"}
-            </button>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
