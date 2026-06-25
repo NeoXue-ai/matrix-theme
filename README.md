@@ -26,4 +26,4 @@ pnpm install
 pnpm dev
 ```
 
-Edit `template.config.ts` to customize content.
+Edit `template.config.ts` to customize your content.
