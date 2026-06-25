@@ -1,12 +1,8 @@
-# Web Templates
-
-A collection of website templates with distinct visual styles.
-
-## Templates
-
-### Matrix Theme
+# Matrix Theme
 
 Cyberpunk/Matrix-inspired portfolio template with terminal aesthetics, animated backgrounds, and CRT effects.
+
+![Matrix Theme Preview](public/preview.png)
 
 **Features:**
 - Matrix rain canvas animation
@@ -21,10 +17,9 @@ Cyberpunk/Matrix-inspired portfolio template with terminal aesthetics, animated 
 - Tailwind CSS 4
 - TypeScript
 
-**Usage:**
+**Quick Start:**
 
 ```bash
-cd templates/matrix-theme
 pnpm install
 pnpm dev
 ```
